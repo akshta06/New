@@ -1,0 +1,25 @@
+import psutil
+import pytest
+import requests
+
+def get_disk_partitions():
+    partitions = psutil.disk_partitions()
+    return [(p.device, p.mountpoint) for p in partitions]
+
+@pytest.mark.parameterize ("reference_partitions", [('/dev/sda1', '/'),('/dev/sda2', '/home')])
+
+def test_disk_partition_layout(reference_partitions):    
+    actual_partitions = get_disk_partitions()
+    
+    # Compare actual layout with reference layout
+    assert actual_partitions == reference_partitions
+
+publish_result_to_dashboad("Disk partition Test Passed")
+
+def publish_result_to_dashboard (message):
+    dashboard_url = "http://disk.partition.com"
+    payload = {'message': message}
+    requests.post(dashboard_url, json=payload)
+
+if __name__ == "__main__":
+    pytest.main(['-v', '--html=report.html'])
