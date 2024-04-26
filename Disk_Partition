@@ -19,7 +19,7 @@ def publish_result_to_dashboard (message):
     payload = {'message': message}
     requests.post(dashboard_url, json=payload)
 
-publish_result_to_dashboad("Disk partition Test Passed")
+publish_result_to_dashboard("Disk partition Test Passed")
 
 if __name__ == "__main__":
     pytest.main(['-v', '--html=report.html'])
