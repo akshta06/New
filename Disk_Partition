@@ -14,12 +14,12 @@ def test_disk_partition_layout(reference_partitions):
     # Compare actual layout with reference layout
     assert actual_partitions == reference_partitions
 
-publish_result_to_dashboad("Disk partition Test Passed")
-
 def publish_result_to_dashboard (message):
     dashboard_url = "http://disk.partition.com"
     payload = {'message': message}
     requests.post(dashboard_url, json=payload)
+
+publish_result_to_dashboad("Disk partition Test Passed")
 
 if __name__ == "__main__":
     pytest.main(['-v', '--html=report.html'])
